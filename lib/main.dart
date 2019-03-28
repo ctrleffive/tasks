@@ -9,8 +9,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.deepPurple.shade600
+        brightness: Brightness.dark,
+        primaryColor: Colors.deepPurple.shade500,
+        scaffoldBackgroundColor: Colors.deepPurple.shade500,
       ),
       home: Intro(),
     );

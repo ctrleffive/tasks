@@ -15,3 +15,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/intro/intro-1.svg
+    - assets/images/intro/intro-2.svg
