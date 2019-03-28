@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasks/models/page.dart';
 import 'package:tasks/ui/home.dart';
+import 'package:tasks/ui/partials/paginator.dart';
 
 class Intro extends StatefulWidget {
   @override
@@ -35,17 +36,17 @@ class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.grey.shade100,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
             height: MediaQuery.of(context).size.height / 1.3,
             width: MediaQuery.of(context).size.width,
-            child: PageView(
+            child: PageView.builder(
               onPageChanged: this._paginationStream.sink.add,
               physics: BouncingScrollPhysics(),
-              children: this._pages.map((IntroPage page) => _SingleItem(page)).toList(),
+              itemCount: this._pages.length,
+              itemBuilder: (_, int index) => _SingleItem(this._pages[index]),
             ),
           ),
           Padding(
@@ -58,7 +59,7 @@ class _IntroState extends State<Intro> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    _Paginator(
+                    Paginator(
                       totalPages: this._pages.length,
                       activePage: pageSnap.data,
                     ),
@@ -137,34 +138,6 @@ class _SingleItem extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Paginator extends StatelessWidget {
-  final int totalPages;
-  final int activePage;
-
-  _Paginator({
-    @required this.activePage,
-    @required this.totalPages,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(this.totalPages, (int index) {
-        return AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          width: index == this.activePage ? 15 : 8,
-          margin: EdgeInsets.only(right: 5),
-          height: 4,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: index == this.activePage ? Colors.white70 : Colors.white24,
-          ),
-        );
-      }),
     );
   }
 }
