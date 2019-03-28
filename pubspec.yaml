@@ -13,6 +13,10 @@ dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora/Lora.ttf
   assets:
     - assets/images/user.jpg
     - assets/images/intro/intro-1.svg

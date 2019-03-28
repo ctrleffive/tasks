@@ -1,9 +1,9 @@
-class IntroPage {
+class IntroModel {
   int id;
   String title;
   String subTitle;
 
-  IntroPage({
+  IntroModel({
     this.id,
     this.title,
     this.subTitle,
