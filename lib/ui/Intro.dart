@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasks/models/page.dart';
+import 'package:tasks/ui/home.dart';
 
 class Intro extends StatefulWidget {
   @override
@@ -49,32 +50,43 @@ class _IntroState extends State<Intro> {
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                StreamBuilder<int>(
-                  initialData: 0,
-                  stream: this._paginationStream.stream,
-                  builder: (_, AsyncSnapshot<int> pageSnap) {
-                    return _Paginator(
+            child: StreamBuilder<int>(
+              initialData: 0,
+              stream: this._paginationStream.stream,
+              builder: (_, AsyncSnapshot<int> pageSnap) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    _Paginator(
                       totalPages: this._pages.length,
                       activePage: pageSnap.data,
-                    );
-                  },
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: CircleAvatar(
-                    child: Icon(
-                      Icons.arrow_forward,
-                      size: 15,
-                      color: Colors.white,
                     ),
-                    backgroundColor: Colors.white10,
-                  ),
-                ),
-              ],
+                    AnimatedOpacity(
+                      opacity: this._pages.length == pageSnap.data + 1 ? 1 : 0,
+                      duration: Duration(milliseconds: 200),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => Home(),
+                            ),
+                          );
+                        },
+                        child: CircleAvatar(
+                          child: Icon(
+                            Icons.arrow_forward,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                          backgroundColor: Colors.white10,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ],
